@@ -1,0 +1,5 @@
+{
+  "sqlite" : "database/db/lab.db",
+  "postgres" : "postgres://postgres:postgres@localhost:5432/furniturefactory?sslmode=disable",
+  "driver" : "postgres"
+}
