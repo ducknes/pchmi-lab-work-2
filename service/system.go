@@ -14,5 +14,6 @@ func (ui UI) SystemMonitor() {
 		ui.CommandPanel()
 	default:
 		fmt.Println("такого раздела не существует или произошла ошибка при вводе")
+		ui.SystemMonitor()
 	}
 }

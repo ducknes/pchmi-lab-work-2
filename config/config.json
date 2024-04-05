@@ -1,5 +1,5 @@
 {
-  "sqlite" : "database/db/lab.db",
-  "postgres" : "postgres://postgres:postgres@localhost:5432/furniturefactory?sslmode=disable",
-  "driver" : "postgres"
+  "sqlite": "database/db/lab.db",
+  "postgres": "postgres://postgres:postgres@localhost:5432/logistics?sslmode=disable",
+  "driver": "postgres"
 }

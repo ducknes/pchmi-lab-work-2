@@ -14,5 +14,6 @@ func (ui UI) Logs() {
 		ui.CommandPanel()
 	default:
 		fmt.Println("такого раздела не существует или произошла ошибка при вводе")
+		ui.Logs()
 	}
 }
