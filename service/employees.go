@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/briandowns/spinner"
 	"lab-work-2/domain"
+	"lab-work-2/utils"
 	"time"
 
 	"github.com/logrusorgru/aurora/v4"
@@ -20,7 +21,9 @@ func (ui UI) EmployeeCommandPanel() {
 	case "1":
 		ui.ViewAllEmployees()
 	case "2":
+		ui.AddEmployee()
 	case "3":
+		ui.EditEmployee()
 	case "0":
 		ui.CommandPanel()
 	default:
@@ -152,6 +155,116 @@ func (ui UI) ViewAllEmployees() {
 		fmt.Printf("День рождения: %s\n", employee.Birthday.Format(time.DateOnly))
 		fmt.Println("----------------------------------------------------------")
 	}
+	fmt.Println("[ 0 ] : Назад")
+	userInput := ui.Input()
+	for userInput != "0" {
+		fmt.Println("вы ввели не 0")
+		userInput = ui.Input()
+	}
+	ui.EmployeeCommandPanel()
+}
+
+func (ui UI) DeleteEmployee() {
+	var id string
+	fmt.Print("Введите id сотрудника, которого хотите удалить: ")
+	fmt.Scanln(&id)
+
+	fmt.Println(aurora.BrightGreen(fmt.Sprintf("Удаляем сотрудника c id: %s", id)))
+
+	err := ui.repos.DeleteEmployee(id)
+
+	spin := spinner.New(spinner.CharSets[33], 190000*time.Microsecond)
+	spin.Start()
+	time.Sleep(2 * time.Second)
+	spin.Stop()
+
+	if err != nil {
+		fmt.Println(aurora.BrightRed(fmt.Sprintf("Не удалось удалить сотрудника, ошибка: %v ", err)))
+		fmt.Println("Нажмите любую кнопку для возвращения назад ...")
+		var temp string
+		fmt.Scan(&temp)
+		ui.EmployeeCommandPanel()
+		return
+	}
+
+	fmt.Println(aurora.BrightGreen("Сотрудник удален"))
+	fmt.Println("[ 0 ] : Назад")
+	userInput := ui.Input()
+	for userInput != "0" {
+		fmt.Println("вы ввели не 0")
+		userInput = ui.Input()
+	}
+	ui.EmployeeCommandPanel()
+}
+
+func (ui UI) EditEmployee() {
+	var id string
+	fmt.Print("Введите id сотрудника, которого хотите изменить: ")
+	fmt.Scanln(&id)
+
+	employee, err := ui.repos.GetEmployee(id)
+
+	if err != nil {
+		fmt.Println(aurora.BrightRed(fmt.Sprintf("Не удалось изменить сотрудника, ошибка: %v ", err)))
+		fmt.Println("Нажмите любую кнопку для возвращения назад ...")
+		var temp string
+		fmt.Scan(&temp)
+		ui.EmployeeCommandPanel()
+		return
+	}
+
+	var tempString string
+	fmt.Print("Новая фамилия: ")
+	fmt.Scanln(&tempString)
+	if !utils.IsStringEmpty(tempString) {
+		employee.Surname = tempString
+	}
+
+	fmt.Print("Новое имя: ")
+	fmt.Scanln(&tempString)
+	if !utils.IsStringEmpty(tempString) {
+		employee.Name = tempString
+	}
+
+	fmt.Print("Новое отчество: ")
+	fmt.Scanln(&tempString)
+	if !utils.IsStringEmpty(tempString) {
+		employee.Patronymic = tempString
+	}
+
+	fmt.Print("Новый номер паспорта: ")
+	//TODO: нужно будет просить до энтера
+	fmt.Scanln(&tempString)
+	if !utils.IsStringEmpty(tempString) {
+		employee.DocumentNumber = tempString
+	}
+
+	fmt.Print("Новая дата рождения (в формате 2006-02-01): ")
+	fmt.Scanln(&tempString)
+	if !utils.IsStringEmpty(tempString) {
+		tempTime, _ := time.Parse("2006-01-02", tempString)
+		employee.Birthday = tempTime
+	}
+
+	fmt.Println(aurora.BrightGreen("Обновляем сотрудника"))
+
+	err = ui.repos.UpdateEmployee(employee)
+
+	spin := spinner.New(spinner.CharSets[33], 190000*time.Microsecond)
+	spin.Start()
+	time.Sleep(2 * time.Second)
+	spin.Stop()
+
+	if err != nil {
+		fmt.Println(aurora.BrightRed(fmt.Sprintf("Не удалось обновить сотрудника, ошибка: %v ", err)))
+		fmt.Println("Нажмите любую кнопку для возвращения назад ...")
+		var temp string
+		fmt.Scan(&temp)
+		ui.EmployeeCommandPanel()
+		return
+	}
+
+	fmt.Println(aurora.BrightGreen("Сотрудник обновлен"))
 	fmt.Println("[ 0 ] : Назад")
 	userInput := ui.Input()
 	for userInput != "0" {
