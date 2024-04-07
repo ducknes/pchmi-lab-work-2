@@ -7,6 +7,7 @@ import (
 	"github.com/logrusorgru/aurora/v4"
 	"lab-work-2/database"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -45,6 +46,7 @@ func (ui UI) CommandPanel() {
 		os.Exit(0)
 	default:
 		fmt.Println("такого раздела не существует или произошла ошибка при вводе")
+		ui.CommandPanel()
 	}
 }
 
@@ -58,12 +60,11 @@ func (ui UI) Input() (out string) {
 
 func (ui UI) InputToEnter() string {
 	buf, _ := bufio.NewReader(os.Stdin).ReadBytes('\n')
-	return string(buf)
+	return strings.TrimSpace(string(buf))
 }
 
 func (ui UI) AnyKeyToBack(anyFunc func()) {
 	fmt.Println("Нажмите любую кнопку для возвращения назад ...")
-	var temp string
-	fmt.Scan(&temp)
+	bufio.NewReader(os.Stdin).ReadByte()
 	anyFunc()
 }

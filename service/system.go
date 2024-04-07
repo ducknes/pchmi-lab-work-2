@@ -45,7 +45,7 @@ func (ui UI) PrintSystemInfo(info map[int]string) {
 		ui.AnyKeyToBack(ui.SystemMonitor)
 		return
 	}
-	fmt.Println(aurora.BrightRed(info[infoInt]))
+	fmt.Println(info[infoInt])
 	ui.AnyKeyToBack(ui.SystemMonitor)
 	return
 }

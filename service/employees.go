@@ -24,6 +24,8 @@ func (ui UI) EmployeeCommandPanel() {
 		ui.AddEmployee()
 	case "3":
 		ui.EditEmployee()
+	case "4":
+		ui.DeleteEmployee()
 	case "0":
 		ui.CommandPanel()
 	default:
@@ -75,10 +77,7 @@ func (ui UI) handEmployeeInput() {
 
 	if err != nil {
 		fmt.Println(aurora.BrightRed(fmt.Sprintf("Не удалось сохранить сотрудника, ошибка: %v ", err)))
-		fmt.Println("Нажмите любую кнопку для возвращения назад ...")
-		var temp string
-		fmt.Scan(&temp)
-		ui.EmployeeCommandPanel()
+		ui.AnyKeyToBack(ui.EmployeeCommandPanel)
 		return
 	}
 
@@ -107,10 +106,7 @@ func (ui UI) getFromGosuslugi() {
 
 	if err != nil {
 		fmt.Println(aurora.BrightRed(fmt.Sprintf("Не удалось сохранить сотрудника, ошибка: %v ", err)))
-		fmt.Println("Нажмите любую кнопку для возвращения назад ...")
-		var temp string
-		fmt.Scan(&temp)
-		ui.EmployeeCommandPanel()
+		ui.AnyKeyToBack(ui.EmployeeCommandPanel)
 		return
 	}
 
@@ -128,19 +124,13 @@ func (ui UI) ViewAllEmployees() {
 	employees, err := ui.repos.GetAllEmployees()
 	if err != nil {
 		fmt.Println(aurora.BrightRed(fmt.Sprintf("Не удалось получить список сотрудников. ошибка: %v", err)))
-		fmt.Println("Нажмите любую кнопку для возвращения назад ...")
-		var temp string
-		fmt.Scan(&temp)
-		ui.EmployeeCommandPanel()
+		ui.AnyKeyToBack(ui.EmployeeCommandPanel)
 		return
 	}
 
 	if len(employees) == 0 {
 		fmt.Println(aurora.BrightYellow("Сотрудники не найдены"))
-		fmt.Println("Нажмите любую кнопку для возвращения назад ...")
-		var temp string
-		fmt.Scan(&temp)
-		ui.EmployeeCommandPanel()
+		ui.AnyKeyToBack(ui.EmployeeCommandPanel)
 		return
 	}
 
@@ -181,10 +171,7 @@ func (ui UI) DeleteEmployee() {
 
 	if err != nil {
 		fmt.Println(aurora.BrightRed(fmt.Sprintf("Не удалось удалить сотрудника, ошибка: %v ", err)))
-		fmt.Println("Нажмите любую кнопку для возвращения назад ...")
-		var temp string
-		fmt.Scan(&temp)
-		ui.EmployeeCommandPanel()
+		ui.AnyKeyToBack(ui.EmployeeCommandPanel)
 		return
 	}
 
@@ -207,10 +194,7 @@ func (ui UI) EditEmployee() {
 
 	if err != nil {
 		fmt.Println(aurora.BrightRed(fmt.Sprintf("Не удалось изменить сотрудника, ошибка: %v ", err)))
-		fmt.Println("Нажмите любую кнопку для возвращения назад ...")
-		var temp string
-		fmt.Scan(&temp)
-		ui.EmployeeCommandPanel()
+		ui.AnyKeyToBack(ui.EmployeeCommandPanel)
 		return
 	}
 
@@ -257,10 +241,7 @@ func (ui UI) EditEmployee() {
 
 	if err != nil {
 		fmt.Println(aurora.BrightRed(fmt.Sprintf("Не удалось обновить сотрудника, ошибка: %v ", err)))
-		fmt.Println("Нажмите любую кнопку для возвращения назад ...")
-		var temp string
-		fmt.Scan(&temp)
-		ui.EmployeeCommandPanel()
+		ui.AnyKeyToBack(ui.EmployeeCommandPanel)
 		return
 	}
 
