@@ -1,6 +1,7 @@
 package service
 
 import (
+	"bufio"
 	"fmt"
 	"github.com/briandowns/spinner"
 	"github.com/logrusorgru/aurora/v4"
@@ -53,4 +54,16 @@ func (ui UI) Input() (out string) {
 		return ""
 	}
 	return
+}
+
+func (ui UI) InputToEnter() string {
+	buf, _ := bufio.NewReader(os.Stdin).ReadBytes('\n')
+	return string(buf)
+}
+
+func (ui UI) AnyKeyToBack(anyFunc func()) {
+	fmt.Println("Нажмите любую кнопку для возвращения назад ...")
+	var temp string
+	fmt.Scan(&temp)
+	anyFunc()
 }

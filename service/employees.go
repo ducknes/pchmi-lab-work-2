@@ -53,15 +53,16 @@ func (ui UI) AddEmployee() {
 func (ui UI) handEmployeeInput() {
 	var employee domain.Employee
 	fmt.Print("Фамилия: ")
-	fmt.Scanln(&employee.Surname)
+	employee.Surname = ui.InputToEnter()
 	fmt.Print("Имя: ")
-	fmt.Scanln(&employee.Name)
+	employee.Name = ui.InputToEnter()
 	fmt.Print("Отчество: ")
-	fmt.Scanln(&employee.Patronymic)
+	employee.Patronymic = ui.InputToEnter()
 	fmt.Print("Номер паспорта: ")
-	fmt.Scanln(&employee.DocumentNumber)
+	employee.DocumentNumber = ui.InputToEnter()
 	fmt.Print("Дата рождения (в формате 2006-02-01): ")
-	fmt.Scanln(&employee.Birthday)
+	dateString := ui.InputToEnter()
+	employee.Birthday, _ = time.Parse(time.DateOnly, dateString)
 
 	fmt.Println(aurora.BrightGreen("Сохраняем сотрудника"))
 
@@ -94,7 +95,7 @@ func (ui UI) handEmployeeInput() {
 func (ui UI) getFromGosuslugi() {
 	var login string
 	fmt.Print("Введите логин сотрудника: ")
-	fmt.Scanln(&login)
+	login = ui.InputToEnter()
 	fmt.Println(aurora.BrightGreen(fmt.Sprintf("Подтягиваем сотрудника c логином %s", login)))
 
 	err := ui.repos.AddEmployee(domain.GetRandomDefaultEmployee())
@@ -215,32 +216,31 @@ func (ui UI) EditEmployee() {
 
 	var tempString string
 	fmt.Print("Новая фамилия: ")
-	fmt.Scanln(&tempString)
+	tempString = ui.InputToEnter()
 	if !utils.IsStringEmpty(tempString) {
 		employee.Surname = tempString
 	}
 
 	fmt.Print("Новое имя: ")
-	fmt.Scanln(&tempString)
+	tempString = ui.InputToEnter()
 	if !utils.IsStringEmpty(tempString) {
 		employee.Name = tempString
 	}
 
 	fmt.Print("Новое отчество: ")
-	fmt.Scanln(&tempString)
+	tempString = ui.InputToEnter()
 	if !utils.IsStringEmpty(tempString) {
 		employee.Patronymic = tempString
 	}
 
 	fmt.Print("Новый номер паспорта: ")
-	//TODO: нужно будет просить до энтера
-	fmt.Scanln(&tempString)
+	tempString = ui.InputToEnter()
 	if !utils.IsStringEmpty(tempString) {
 		employee.DocumentNumber = tempString
 	}
 
 	fmt.Print("Новая дата рождения (в формате 2006-02-01): ")
-	fmt.Scanln(&tempString)
+	tempString = ui.InputToEnter()
 	if !utils.IsStringEmpty(tempString) {
 		tempTime, _ := time.Parse("2006-01-02", tempString)
 		employee.Birthday = tempTime
