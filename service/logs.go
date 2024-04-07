@@ -54,6 +54,7 @@ func (ui UI) Logs() {
 }
 
 func (ui UI) PrintLogs(logMap map[int]string) {
+	ui.ClearConsole()
 	fmt.Println(aurora.BrightGreen("для возвращения назад нажмите любую клавишу"))
 	done := make(chan bool, 1)
 

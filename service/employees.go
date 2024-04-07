@@ -11,6 +11,7 @@ import (
 )
 
 func (ui UI) EmployeeCommandPanel() {
+	ui.ClearConsole()
 	fmt.Println("[ 1 ] : Список сотрудников")
 	fmt.Println("[ 2 ] : Добавить нового сотрудника")
 	fmt.Println("[ 3 ] : Изменить данные сотрудника")
@@ -35,6 +36,7 @@ func (ui UI) EmployeeCommandPanel() {
 }
 
 func (ui UI) AddEmployee() {
+	ui.ClearConsole()
 	fmt.Println("[ 1 ] Добавить вручную")
 	fmt.Println("[ 2 ] Подтянуть с госуслугами")
 	fmt.Println("[ 0 ] Назад")
@@ -121,6 +123,7 @@ func (ui UI) getFromGosuslugi() {
 }
 
 func (ui UI) ViewAllEmployees() {
+	ui.ClearConsole()
 	employees, err := ui.repos.GetAllEmployees()
 	if err != nil {
 		fmt.Println(aurora.BrightRed(fmt.Sprintf("Не удалось получить список сотрудников. ошибка: %v", err)))
@@ -156,6 +159,7 @@ func (ui UI) ViewAllEmployees() {
 }
 
 func (ui UI) DeleteEmployee() {
+	ui.ClearConsole()
 	var id string
 	fmt.Print("Введите id сотрудника, которого хотите удалить: ")
 	fmt.Scanln(&id)
@@ -186,6 +190,7 @@ func (ui UI) DeleteEmployee() {
 }
 
 func (ui UI) EditEmployee() {
+	ui.ClearConsole()
 	var id string
 	fmt.Print("Введите id сотрудника, которого хотите изменить: ")
 	fmt.Scanln(&id)

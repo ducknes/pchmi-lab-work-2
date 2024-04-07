@@ -21,6 +21,7 @@ var serverInfoLogs = map[int]string{
 }
 
 func (ui UI) SystemMonitor() {
+	ui.ClearConsole()
 	fmt.Println("[ 1 ] : Состояние сети")
 	fmt.Println("[ 2 ] : Состояние сервера")
 	fmt.Println("[ 0 ] : Назад")
@@ -39,6 +40,7 @@ func (ui UI) SystemMonitor() {
 }
 
 func (ui UI) PrintSystemInfo(info map[int]string) {
+	ui.ClearConsole()
 	infoInt := rand.Intn(len(info))
 	if infoInt == 0 {
 		fmt.Println(aurora.BrightRed(info[infoInt]))

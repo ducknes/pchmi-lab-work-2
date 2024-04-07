@@ -6,7 +6,9 @@ import (
 	"github.com/briandowns/spinner"
 	"github.com/logrusorgru/aurora/v4"
 	"lab-work-2/database"
+	"log"
 	"os"
+	"os/exec"
 	"strings"
 	"time"
 )
@@ -30,6 +32,7 @@ func (ui UI) Start() {
 }
 
 func (ui UI) CommandPanel() {
+	ui.ClearConsole()
 	fmt.Println("[ 1 ] : Сотрудники ")
 	fmt.Println("[ 2 ] : Состояние системы ")
 	fmt.Println("[ 3 ] : Логи ")
@@ -67,4 +70,11 @@ func (ui UI) AnyKeyToBack(anyFunc func()) {
 	fmt.Println("Нажмите любую кнопку для возвращения назад ...")
 	bufio.NewReader(os.Stdin).ReadByte()
 	anyFunc()
+}
+
+func (ui UI) ClearConsole() {
+	cmd := exec.Command("clear")
+	if err := cmd.Run(); err != nil {
+		log.Fatalf("Failed to clear console: %v", err)
+	}
 }
