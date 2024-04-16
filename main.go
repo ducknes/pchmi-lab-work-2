@@ -3,11 +3,12 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/logrusorgru/aurora/v4"
 	"lab-work-2/config"
 	"lab-work-2/database"
 	"lab-work-2/service"
 	"os"
+
+	"github.com/logrusorgru/aurora/v4"
 )
 
 func main() {

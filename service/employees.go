@@ -38,7 +38,7 @@ func (ui UI) EmployeeCommandPanel() {
 func (ui UI) AddEmployee() {
 	ui.ClearConsole()
 	fmt.Println("[ 1 ] Добавить вручную")
-	fmt.Println("[ 2 ] Подтянуть с госуслугами")
+	fmt.Println("[ 2 ] Подтянуть с госуслуг")
 	fmt.Println("[ 0 ] Назад")
 
 	switch ui.Input() {
